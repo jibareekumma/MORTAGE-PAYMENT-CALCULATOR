@@ -1,0 +1,21 @@
+div {
+  position: relative;
+}
+
+.prefix {
+  position: absolute;
+  left: 0;
+  color: white;
+  background-color: black;
+  height: 100%;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  padding-left: 28px;
+  height: 40px;
+  font-size: 16px;
+}/*# sourceMappingURL=test.css.map */
