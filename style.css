@@ -143,17 +143,73 @@ footer {
   height: auto;
   margin-right: 0;
   margin-left: 0;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 1.5rem;
+  margin-top: 2rem;
   border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: hsl(202, 55%, 16%);
+  color: white;
+  padding-bottom: 2rem;
 }
 
 #completed-result-section {
   height: auto;
-  display: flex;
-  gap: 2rem;
+  width: 90%;
 }
-#completed-result-section .result-headings {
+
+.result-headings {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.result-headings h4 {
+  margin-bottom: 0.7rem;
+  font-size: 2rem;
+}
+.result-headings p {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+  font-weight: 500;
+  color: rgb(189, 191, 207);
+}
+
+.completed-result-container {
   border: 2px solid black;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  height: auto;
+  border: none;
+  border-top: hsl(61, 70%, 52%) solid 3px;
+  background-color: hsl(201, 70%, 8%);
+  border-radius: 5px;
+  box-shadow: -5px 3px 10px rgb(28, 29, 34);
+}
+.completed-result-container hr {
+  font-weight: 400;
+}
+.completed-result-container .container1, .completed-result-container .container2 {
+  height: 50%;
+}
+.completed-result-container .container1 h5, .completed-result-container .container2 h5 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgb(189, 191, 207);
+}
+.completed-result-container .container1 h3, .completed-result-container .container2 h3 {
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: hsl(61, 70%, 52%);
+}
+.completed-result-container .container2 h3 {
+  font-size: 2rem;
+  color: white;
 }/*# sourceMappingURL=style.css.map */
