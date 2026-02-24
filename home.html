@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="jibare-ekumma" />
     <link rel="stylesheet" href="home.css" />
+    <link rel="icon" href="images/favicon-32x32.png" type="images/png" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="app.js"></script>
     <title>Mortgage Payment Calculator</title>
   </head>
 
@@ -19,6 +21,7 @@
             Mortgage Calculator
           </h1>
           <p
+            id="clear-all-btn"
             class="text-[1.3rem] text-slate-500 underline cursor-pointer hover:text-slate-700"
           >
             Clear All
@@ -40,6 +43,7 @@
                 £
               </span>
               <input
+                id="mortage-amount"
                 type="text"
                 required
                 class="w-full h-12 border border-slate-300 rounded-md pl-14 pr-4 text-[1.4rem] focus:outline-none focus:border-yellow-400"
@@ -55,6 +59,7 @@
 
             <div class="relative">
               <input
+                id="mortage-term"
                 type="text"
                 required
                 class="w-full h-12 border border-slate-300 rounded-md pl-4 pr-20 text-[1.4rem] focus:outline-none focus:border-yellow-400"
@@ -75,6 +80,7 @@
 
             <div class="relative">
               <input
+                id="interest-rate"
                 type="text"
                 required
                 class="w-full h-12 border border-slate-300 rounded-md pl-4 pr-14 text-[1.4rem] focus:outline-none focus:border-yellow-400"
@@ -92,7 +98,12 @@
             <label
               class="flex items-center gap-3 border border-slate-300 rounded-md h-12 px-4 cursor-pointer hover:bg-yellow-50 hover:border-yellow-400"
             >
-              <input type="radio" name="type" class="accent-yellow-400" />
+              <input
+                id="repayment-radio"
+                type="radio"
+                name="type"
+                class="accent-yellow-400"
+              />
               <span class="text-[1.4rem] font-semibold text-slate-800">
                 Repayment
               </span>
@@ -101,7 +112,12 @@
             <label
               class="flex items-center gap-3 border border-slate-300 rounded-md h-12 px-4 cursor-pointer hover:bg-yellow-50 hover:border-yellow-400"
             >
-              <input type="radio" name="type" class="accent-yellow-400" />
+              <input
+                id="interest-radio"
+                type="radio"
+                name="type"
+                class="accent-yellow-400"
+              />
               <span class="text-[1.4rem] font-semibold text-slate-800">
                 Interest Only
               </span>
@@ -112,6 +128,7 @@
           <button
             type="button"
             class="w-full h-14 bg-yellow-400 rounded-full font-bold text-slate-900 text-[1.4rem] flex items-center justify-center gap-3 hover:scale-105 hover:bg-yellow-300 transition-all duration-300"
+            id="calculate-button"
           >
             <img src="images/icon-calculator.svg" width="20" />
             Calculate Repayments
@@ -119,44 +136,6 @@
         </form>
       </section>
     </main>
-
-    <!-- RESULT SECTION -->
-    <!-- <footer
-      class="md:w-1/2 w-full bg-slate-900 text-white px-6 py-10 flex items-center justify-center"
-    >
-      <section class="w-full max-w-md space-y-6">
-        <div class="space-y-3">
-          <h4 class="text-[2rem] font-bold">Your Results</h4>
-          <p class="text-[1.3rem] text-slate-300 leading-relaxed">
-            Your results are shown below based on the information you provided.
-            To adjust the result, edit the form and click calculate again.
-          </p>
-        </div>
-
-        <div
-          class="bg-slate-800 rounded-md p-6 border-t-4 border-yellow-400 shadow-lg space-y-6"
-        >
-          <div>
-            <h5 class="text-[1.3rem] text-slate-300">
-              Your monthly repayments
-            </h5>
-            <h3 class="text-[2.8rem] font-extrabold text-yellow-400 mt-2">
-              £1,797.74
-            </h3>
-          </div>
-
-          <hr class="border-slate-700" />
-
-          <div>
-            <h5 class="text-[1.3rem] text-slate-300">
-              Total you'll repay over the term
-            </h5>
-            <h3 class="text-[2rem] font-bold mt-2">£539,322.94</h3>
-          </div>
-        </div>
-      </section>
-    </footer> -->
-    <!-- RESULT SECTION -->
 
     <!-- RESULT SECTION -->
     <footer class="md:w-1/2 w-full">
@@ -173,14 +152,14 @@
         <div class="result-container">
           <div class="result1">
             <h5>Your monthly repayments</h5>
-            <h3>£1,797.74</h3>
+            <h3 id="monthly-repayment">£1,797.74</h3>
           </div>
 
           <hr />
 
           <div class="result2">
             <h5>Total you'll repay over the term</h5>
-            <h3>£539,322.94</h3>
+            <h3 id="total-repayment">£539,322.94</h3>
           </div>
         </div>
       </section>
