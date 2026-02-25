@@ -111,3 +111,52 @@ footer{
         }
     }
 }
+
+
+.error-amount{
+    width: 100%;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    letter-spacing: 0.5px;
+    display: none;
+}
+
+.error-term{
+    @extend .error-amount
+}
+
+.error-rate{
+    @extend .error-amount
+}
+
+.zero-amount{
+    width: 100%;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    letter-spacing: 0.5px;
+    display: none;
+
+    b{
+        font-size: 1.8rem;
+    }
+   
+}
+
+.zero-term{
+    @extend .zero-amount
+}
+
+.zero-interest{
+    @extend .zero-amount
+}
