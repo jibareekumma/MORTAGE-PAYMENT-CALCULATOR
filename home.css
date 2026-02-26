@@ -79,7 +79,7 @@ footer {
   color: white;
 }
 
-.error-amount, .error-rate, .error-term {
+.error-amount, .error-radio, .error-rate, .error-term {
   width: 100%;
   font-size: 1.3rem;
   font-style: italic;
@@ -90,21 +90,4 @@ footer {
   margin-top: 1rem;
   letter-spacing: 0.5px;
   display: none;
-}
-
-.zero-amount, .zero-interest, .zero-term {
-  width: 100%;
-  font-size: 1.3rem;
-  font-style: italic;
-  color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
-  letter-spacing: 0.5px;
-  display: none;
-}
-.zero-amount b, .zero-interest b, .zero-term b {
-  font-size: 1.8rem;
 }/*# sourceMappingURL=home.css.map */

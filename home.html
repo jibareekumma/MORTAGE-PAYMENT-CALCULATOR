@@ -50,9 +50,6 @@
               />
             </div>
             <p class="error-amount">Field cannot be left empty</p>
-            <p class="zero-amount">
-              Mortage amount must be greater than <b> 0</b>
-            </p>
           </div>
 
           <!-- Mortgage Term -->
@@ -75,9 +72,6 @@
               </span>
             </div>
             <p class="error-term">Field cannot be left empty</p>
-            <p class="zero-term">
-              Mortage term or contract cannot be <b> 0</b>
-            </p>
           </div>
 
           <!-- Interest Rate -->
@@ -100,7 +94,6 @@
               </span>
             </div>
             <p class="error-rate">Field cannot be left empty</p>
-            <p class="zero-interest">Interest Value cannot be <b> 0</b></p>
           </div>
 
           <!-- Radio Options -->
@@ -112,6 +105,7 @@
                 id="repayment-radio"
                 type="radio"
                 name="type"
+                value="repayment"
                 class="accent-yellow-400"
               />
               <span class="text-[1.4rem] font-semibold text-slate-800">
@@ -127,12 +121,14 @@
                 type="radio"
                 name="type"
                 class="accent-yellow-400"
+                value="interest"
               />
               <span class="text-[1.4rem] font-semibold text-slate-800">
                 Interest Only
               </span>
             </label>
           </div>
+          <p class="error-radio">Please select a payment type</p>
 
           <!-- Button -->
           <button

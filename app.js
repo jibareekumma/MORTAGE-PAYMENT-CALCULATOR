@@ -24,65 +24,75 @@ const totalRepayment = document.getElementById('total-repayment');
 const errorAmount = document.querySelector(".error-amount")
 const errorTerm = document.querySelector(".error-term")
 const errorRate = document.querySelector(".error-rate")
-const zeroAmount = document.querySelector(".zero-amount")
-const zeroTerm = document.querySelector(".zero-term")
-const zeroInterest = document.querySelector(".zero-interest")
-
+const errorRadio = document.querySelector(".error-radio")
 // collecting Input values
 
 // The Function before Button is clicked
 const handleClick = function(e){
-   
-    // Amount Value INput
+
+    let isValid = true;
+
+    // Amount value Inputs
     let amountValue = mortageAmount.value
-        if(amountValue.trim() === ""){
-            errorAmount.style.display = "block"
-        } else{
-            errorAmount.style.display = "none"
+    if(amountValue === ""){
+        errorAmount.style.display = "block"
+        isValid = false;
+    } else{
+        errorAmount.style.display = "none"
+    }
+    amountValue = Number(amountValue)
+    
 
-            amountValue = Number(mortageAmount.value)
-        }
-        if(amountValue <= 0){
-            zeroAmount.style.display = "block"
-        } else{
-            zeroAmount.style.display = "none"
-        }
-        
-
-
-        // Term Input
+    // Term Value Inputs
     let termValue = mortageTerm.value
-        if(termValue.trim() === ""){
-            errorTerm.style.display = "block"
-        } else{
-            errorTerm.style.display = "none"
+    if(termValue === ""){
+        errorTerm.style.display = "block"
+        isValid = false;
+    } else{
+        errorTerm.style.display = "none"
+    }
+    termValue = Number(termValue)
+    const termValueC = termValue * 12;
 
-            termValue = Number(mortageAmount.value)
-        }
-        if(termValue === 0){
-            zeroTerm.style.display = "block"
-        } else{
-            zeroTerm.style.display = "none"
-        }
-
-
-        // Interest Input
-    const interestValue = Number(interestRate.value)
-        if(interestValue === ""){
-            errorRate.style.display = "block"
-        } else{
-            errorRate.style.display = "none"
-        }
-        if(interestValue <= 0){
-            zeroInterest.style.display = "block"
-        } else {
-            zeroInterest.style.display = "none"
-        }
-        
+    // Interest Value Inputs
+    let interestValue = interestRate.value
+    if(interestValue === ""){
+        errorRate.style.display = "block"
+         isValid = false;
+    } else{
+        errorRate.style.display = "none"
+    }
+    interestValue = Number(interestValue)
+    const interestValueC = (interestValue / 100)
 
     console.log(amountValue, termValue, interestValue)
-}
+    console.log(termValueC, interestValueC)
 
+
+    // Checking and storing the radios
+   if( repaymentRadio.checked || interestRadio.checked ){
+        errorRadio.style.display = "none"
+   } else{
+        errorRadio.style.display = "block"
+        isValid = false;
+   }
+
+   const selectedRadio = document.querySelector('input[name = "type"]:checked')
+
+   let selectedType = null;
+
+   if(selectedRadio){
+    selectedType = selectedRadio.value
+   } else{
+    isValid = false;
+   }
+
+   console.log(selectedType)
+
+   if(!isValid) return;
+
+
+}
 
 
 calculateBtn.addEventListener(

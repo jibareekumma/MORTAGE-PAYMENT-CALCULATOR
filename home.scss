@@ -134,29 +134,6 @@ footer{
     @extend .error-amount
 }
 
-.zero-amount{
-    width: 100%;
-    font-size: 1.3rem;
-    font-style: italic;
-    color: red;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    letter-spacing: 0.5px;
-    display: none;
-
-    b{
-        font-size: 1.8rem;
-    }
-   
-}
-
-.zero-term{
-    @extend .zero-amount
-}
-
-.zero-interest{
-    @extend .zero-amount
+.error-radio{
+    @extend .error-amount;
 }
