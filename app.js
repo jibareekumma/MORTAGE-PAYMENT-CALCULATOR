@@ -27,6 +27,13 @@ const errorRate = document.querySelector(".error-rate")
 const errorRadio = document.querySelector(".error-radio")
 // collecting Input values
 
+
+// Selecting Results Classes
+const tResult = document.querySelector(".total-result")
+
+
+// Formula for repaymnent Only
+
 // The Function before Button is clicked
 const handleClick = function(e){
 
@@ -40,7 +47,8 @@ const handleClick = function(e){
     } else{
         errorAmount.style.display = "none"
     }
-    amountValue = Number(amountValue)
+    amountValue = Number(amountValue);
+   
     
 
     // Term Value Inputs
@@ -52,7 +60,7 @@ const handleClick = function(e){
         errorTerm.style.display = "none"
     }
     termValue = Number(termValue)
-    const termValueC = termValue * 12;
+    const termValueC = (termValue / 12)
 
     // Interest Value Inputs
     let interestValue = interestRate.value
@@ -77,7 +85,51 @@ const handleClick = function(e){
         isValid = false;
    }
 
-   const selectedRadio = document.querySelector('input[name = "type"]:checked')
+//    Repayment Radio formula
+   const repaymentFnc = function(value, term, interest){
+     let mainInterest = value * interest * term + (value) 
+    return(mainInterest)
+}
+
+// console.log(repaymentFnc(
+//     amountValue, termValue, interestValueC
+// ))
+
+const interestFnc = function (value, term, interest){
+    let mainInterest2 = value * interest * term
+    return mainInterest2
+}
+
+// console.log(interestFnc(amountValue, termValue, interestValueC))
+
+
+// Monthly Repayment Function
+    // const monthlyRepaymentFnc = function(value, interest, termC){
+    //     let mPayment = (value * interest) / termC
+    //     return mPayment
+    // }
+    // console.log(monthlyRepaymentFnc(
+    //     amountValue, interestValueC, termValueC
+    // ), "yeah5555")
+
+    const monthlyRepaymentFnc = function (value, interest, termC){
+        const monthlyRate = interest / 12;
+        const numPayments = termC * 12;
+
+        const mPayment = value * (monthlyRate * Math.pow(
+            1 + monthlyRate, numPayments
+        )) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+
+        return mPayment
+    }
+
+    console.log(monthlyRepaymentFnc(
+        amountValue, interestValueC, termValueC
+    ), "yeah555")
+
+
+   const selectedRadio = 
+   document.querySelector('input[name = "type"]:checked')
 
    let selectedType = null;
 
@@ -86,10 +138,23 @@ const handleClick = function(e){
    } else{
     isValid = false;
    }
-
    console.log(selectedType)
 
    if(!isValid) return;
+
+   if(selectedType === "repayment"){
+    tResult.textContent = repaymentFnc(amountValue, termValue,
+     interestValueC);
+//    console.log(repaymentFnc(amountValue, termValue,
+//      interestValueC), "Yahhh1" )
+   } 
+
+   if(selectedType === "interest" ){
+     tResult.textContent = repaymentFnc(amountValue, termValue,
+     interestValueC);
+    console.log(interestFnc(amountValue, termValue,
+         interestValueC), "yeah222")
+   }
 
 
 }
