@@ -17,7 +17,7 @@ footer {
 }
 
 .result-section {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 3.5rem;
 }
@@ -90,4 +90,48 @@ footer {
   margin-top: 1rem;
   letter-spacing: 0.5px;
   display: none;
+}
+
+.result-section-empty {
+  height: auto;
+  display: flex;
+  align-items: center;
+  margin-top: 15%;
+  margin-bottom: 10%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.result-section-empty .container {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.result-section-empty .container img {
+  width: 20rem;
+  height: 20rem;
+}
+.result-section-empty .container .text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+.result-section-empty .container .text-container h3 {
+  color: white;
+  letter-spacing: 0.5px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.result-section-empty .container .text-container p {
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+  font-weight: 300;
+  color: hsl(222, 38%, 84%);
+  font-weight: 600;
 }/*# sourceMappingURL=home.css.map */

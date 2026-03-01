@@ -30,15 +30,20 @@ const errorRadio = document.querySelector(".error-radio")
 
 // Selecting Results Classes
 const tResult = document.querySelector(".total-result")
+const mResult = document.querySelector(".monthly-result")
 
+// Selecting The UI
+const visibleResult = document.querySelector(".result-section");
+const emptyResult = document.querySelector(".result-section-empty");
 
-// Formula for repaymnent Only
 
 // The Function before Button is clicked
 const handleClick = function(e){
 
-    let isValid = true;
+    // e.preventDefault();
 
+    let isValid = true;
+    
     // Amount value Inputs
     let amountValue = mortageAmount.value
     if(amountValue === ""){
@@ -73,9 +78,7 @@ const handleClick = function(e){
     interestValue = Number(interestValue)
     const interestValueC = (interestValue / 100)
 
-    console.log(amountValue, termValue, interestValue)
-    console.log(termValueC, interestValueC)
-
+    
 
     // Checking and storing the radios
    if( repaymentRadio.checked || interestRadio.checked ){
@@ -90,42 +93,34 @@ const handleClick = function(e){
      let mainInterest = value * interest * term + (value) 
     return(mainInterest)
 }
+const tRepayment = repaymentFnc(
+    amountValue, termValue, interestValueC
+)
 
-// console.log(repaymentFnc(
-//     amountValue, termValue, interestValueC
-// ))
-
+// Interest Radio Formula
 const interestFnc = function (value, term, interest){
     let mainInterest2 = value * interest * term
     return mainInterest2
 }
 
-// console.log(interestFnc(amountValue, termValue, interestValueC))
 
+// Monthly Repayment Function and Formula
+    const monthlyRepaymentFnc = function(value, term, interest){
+    const monthlyInterest = interest / 12;        // yearly → monthly
+    const totalMonths = term * 12;                // years → months
 
-// Monthly Repayment Function
-    // const monthlyRepaymentFnc = function(value, interest, termC){
-    //     let mPayment = (value * interest) / termC
-    //     return mPayment
-    // }
-    // console.log(monthlyRepaymentFnc(
-    //     amountValue, interestValueC, termValueC
-    // ), "yeah5555")
+    const monthlyPayment = 
+        (value * monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) /
+        (Math.pow(1 + monthlyInterest, totalMonths) - 1);
 
-    const monthlyRepaymentFnc = function (value, interest, termC){
-        const monthlyRate = interest / 12;
-        const numPayments = termC * 12;
+    return monthlyPayment;
+};
 
-        const mPayment = value * (monthlyRate * Math.pow(
-            1 + monthlyRate, numPayments
-        )) / (Math.pow(1 + monthlyRate, numPayments) - 1);
-
-        return mPayment
-    }
-
-    console.log(monthlyRepaymentFnc(
-        amountValue, interestValueC, termValueC
-    ), "yeah555")
+const monthlyPaymentResult = monthlyRepaymentFnc(
+    amountValue,
+    termValue,
+    interestValueC
+);
 
 
    const selectedRadio = 
@@ -138,24 +133,28 @@ const interestFnc = function (value, term, interest){
    } else{
     isValid = false;
    }
-   console.log(selectedType)
 
    if(!isValid) return;
 
+//    NOW SWITCH UI
+    emptyResult.style.display = "none"
+    visibleResult.style.display = "flex"
+
+    // console.log(emptyResult);
+    // console.log(visibleResult)
+
    if(selectedType === "repayment"){
-    tResult.textContent = repaymentFnc(amountValue, termValue,
-     interestValueC);
-//    console.log(repaymentFnc(amountValue, termValue,
-//      interestValueC), "Yahhh1" )
+    tResult.textContent = tRepayment;
    } 
 
    if(selectedType === "interest" ){
-     tResult.textContent = repaymentFnc(amountValue, termValue,
+     tResult.textContent = interestFnc(amountValue, termValue,
      interestValueC);
-    console.log(interestFnc(amountValue, termValue,
-         interestValueC), "yeah222")
+
    }
 
+// Manipulating Style For Monthly Repayment
+mResult.textContent = monthlyPaymentResult.toFixed(3);
 
 }
 
@@ -163,4 +162,20 @@ const interestFnc = function (value, term, interest){
 calculateBtn.addEventListener(
     'click', 
     handleClick
+)
+
+// Button Taking the Input Back to default Fnction
+
+const clearFnc = function(){
+    mortageAmount.value = "";
+    mortageTerm.value = ""
+    interestRate.value = ""
+
+
+    emptyResult.style.display = "flex"
+    visibleResult.style.display = "none"
+}
+
+clearBtn.addEventListener(
+    'click', clearFnc
 )
