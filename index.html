@@ -1,199 +1,315 @@
 <!doctype html>
-<html lang="en" class="text-[62.5%]">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="jibare-ekumma" />
+    <meta
+      name="description"
+      content="Calculate your monthly and total mortgage repayments."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="home.css" />
-    <link rel="icon" href="images/favicon-32x32.png" type="images/png" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="app.js"></script>
-    <title>Mortgage Payment Calculator</title>
+    <link rel="icon" href="images/favicon-32x32.png" type="image/png" />
+    <title>Mortgage Repayment Calculator</title>
   </head>
 
-  <body class="bg-slate-100 md:flex md:min-h-screen">
-    <!-- MAIN SECTION -->
-    <main class="md:w-1/2 w-full px-6 py-8 md:px-12">
-      <section class="space-y-6">
-        <!-- Headings -->
-        <div class="flex justify-between items-center">
-          <h1 class="text-[2rem] font-bold text-slate-800">
-            Mortgage Calculator
-          </h1>
-          <p
-            id="clear-all-btn"
-            class="text-[1.3rem] text-slate-500 underline cursor-pointer hover:text-slate-700"
+  <body>
+    <div class="app">
+      <!-- FORM PANEL -->
+      <main class="panel panel--form">
+        <section class="form-card" id="form-section">
+          <div class="form-card__header">
+            <h1 class="form-card__title">Mortgage Calculator</h1>
+            <button type="button" class="link-btn" id="clear-all-btn">
+              Clear All
+            </button>
+          </div>
+
+          <form class="form" novalidate>
+            <!-- Mortgage Amount -->
+            <div class="field">
+              <label class="field__label" for="mortgage-amount">
+                Mortgage Amount
+              </label>
+              <div class="field__control field__control--prefix">
+                <span class="field__adorn">£</span>
+                <input
+                  id="mortgage-amount"
+                  name="mortgage-amount"
+                  type="number"
+                  step="100"
+                  min="0"
+                  inputmode="decimal"
+                  required
+                />
+              </div>
+              <p class="field__error" id="error-amount">
+                Field cannot be left empty
+              </p>
+            </div>
+
+            <!-- Mortgage Term -->
+            <div class="field">
+              <label class="field__label" for="mortgage-term">
+                Mortgage Term
+              </label>
+              <div class="field__control field__control--suffix">
+                <input
+                  id="mortgage-term"
+                  name="mortgage-term"
+                  type="number"
+                  step="1"
+                  min="0"
+                  inputmode="numeric"
+                  required
+                />
+                <span class="field__adorn">Years</span>
+              </div>
+              <p class="field__error" id="error-term">
+                Field cannot be left empty
+              </p>
+            </div>
+
+            <!-- Interest Rate -->
+            <div class="field">
+              <label class="field__label" for="interest-rate">
+                Interest Rate
+              </label>
+              <div class="field__control field__control--suffix">
+                <input
+                  id="interest-rate"
+                  name="interest-rate"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  inputmode="decimal"
+                  required
+                />
+                <span class="field__adorn">%</span>
+              </div>
+              <p class="field__error" id="error-rate">
+                Field cannot be left empty
+              </p>
+            </div>
+
+            <!-- Repayment Type -->
+            <fieldset class="radio-group">
+              <legend class="field__label">Mortgage Type</legend>
+
+              <label class="radio-option" for="repayment-radio">
+                <input
+                  id="repayment-radio"
+                  type="radio"
+                  name="type"
+                  value="repayment"
+                />
+                <span class="radio-option__dot" aria-hidden="true"></span>
+                <span class="radio-option__label">Repayment</span>
+              </label>
+
+              <label class="radio-option" for="interest-radio">
+                <input
+                  id="interest-radio"
+                  type="radio"
+                  name="type"
+                  value="interest"
+                />
+                <span class="radio-option__dot" aria-hidden="true"></span>
+                <span class="radio-option__label">Interest Only</span>
+              </label>
+
+              <p class="field__error" id="error-radio">
+                Please select a mortgage type
+              </p>
+            </fieldset>
+
+            <button type="button" class="btn-calculate" id="calculate-button">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                class="btn-calculate__icon"
+              >
+                <rect
+                  x="4"
+                  y="2"
+                  width="16"
+                  height="20"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <line
+                  x1="8"
+                  y1="6"
+                  x2="16"
+                  y2="6"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="8"
+                  y1="11"
+                  x2="8.01"
+                  y2="11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="12"
+                  y1="11"
+                  x2="12.01"
+                  y2="11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="16"
+                  y1="11"
+                  x2="16.01"
+                  y2="11"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="8"
+                  y1="15"
+                  x2="8.01"
+                  y2="15"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="12"
+                  y1="15"
+                  x2="12.01"
+                  y2="15"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="16"
+                  y1="15"
+                  x2="16.01"
+                  y2="15"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              Calculate Repayments
+            </button>
+          </form>
+        </section>
+      </main>
+
+      <!-- RESULTS PANEL -->
+      <aside class="panel panel--results">
+        <section class="results-empty" id="results-empty">
+          <svg
+            viewBox="0 0 96 96"
+            fill="none"
+            class="results-empty__icon"
+            aria-hidden="true"
           >
-            Clear All
+            <path
+              d="M20 78 L20 34 L48 18 L76 34 L76 78 Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+            <line
+              x1="20"
+              y1="78"
+              x2="76"
+              y2="78"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <line
+              x1="38"
+              y1="78"
+              x2="38"
+              y2="52"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <line
+              x1="58"
+              y1="78"
+              x2="58"
+              y2="52"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <line
+              x1="38"
+              y1="52"
+              x2="58"
+              y2="52"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <h2 class="results-empty__title">Results shown here</h2>
+          <p class="results-empty__text">
+            Complete the form and click “calculate repayments” to see what your
+            monthly repayments would be.
           </p>
-        </div>
+        </section>
 
-        <!-- Form -->
-        <form class="space-y-6">
-          <!-- Mortgage Amount -->
-          <div class="space-y-2">
-            <label class="text-[1.4rem] text-slate-500 font-medium">
-              Mortgage Amount
-            </label>
-
-            <div class="relative">
-              <span
-                class="absolute left-0 top-0 h-full w-12 bg-slate-200 flex items-center justify-center rounded-l-md font-semibold text-slate-700"
-              >
-                £
-              </span>
-              <input
-                id="mortage-amount"
-                type="number"
-                step="100"
-                required
-                class="w-full h-12 border border-slate-300 rounded-md pl-14 pr-4 text-[1.4rem] focus:outline-none focus:border-yellow-400"
-              />
-            </div>
-            <p class="error-amount">Field cannot be left empty</p>
-          </div>
-
-          <!-- Mortgage Term -->
-          <div class="space-y-2">
-            <label class="text-[1.4rem] text-slate-500 font-medium">
-              Mortgage Term
-            </label>
-
-            <div class="relative">
-              <input
-                id="mortage-term"
-                type="number"
-                step="1"
-                required
-                class="w-full h-12 border border-slate-300 rounded-md pl-4 pr-20 text-[1.4rem] focus:outline-none focus:border-yellow-400"
-              />
-              <span
-                class="absolute right-0 top-0 h-full w-20 bg-slate-200 flex items-center justify-center rounded-r-md font-semibold text-slate-700"
-              >
-                Years
-              </span>
-            </div>
-            <p class="error-term">Field cannot be left empty</p>
-          </div>
-
-          <!-- Interest Rate -->
-          <div class="space-y-2">
-            <label class="text-[1.4rem] text-slate-500 font-medium">
-              Interest Rate
-            </label>
-
-            <div class="relative">
-              <input
-                id="interest-rate"
-                type="number"
-                step="0.5"
-                required
-                class="w-full h-12 border border-slate-300 rounded-md pl-4 pr-14 text-[1.4rem] focus:outline-none focus:border-yellow-400"
-              />
-              <span
-                class="absolute right-0 top-0 h-full w-12 bg-slate-200 flex items-center justify-center rounded-r-md font-semibold text-slate-700"
-              >
-                %
-              </span>
-            </div>
-            <p class="error-rate">Field cannot be left empty</p>
-          </div>
-
-          <!-- Radio Options -->
-          <div class="space-y-3">
-            <label
-              class="flex items-center gap-3 border border-slate-300 rounded-md h-12 px-4 cursor-pointer hover:bg-yellow-50 hover:border-yellow-400"
-            >
-              <input
-                id="repayment-radio"
-                type="radio"
-                name="type"
-                value="repayment"
-                class="accent-yellow-400"
-              />
-              <span class="text-[1.4rem] font-semibold text-slate-800">
-                Repayment
-              </span>
-            </label>
-
-            <label
-              class="flex items-center gap-3 border border-slate-300 rounded-md h-12 px-4 cursor-pointer hover:bg-yellow-50 hover:border-yellow-400"
-            >
-              <input
-                id="interest-radio"
-                type="radio"
-                name="type"
-                class="accent-yellow-400"
-                value="interest"
-              />
-              <span class="text-[1.4rem] font-semibold text-slate-800">
-                Interest Only
-              </span>
-            </label>
-          </div>
-          <p class="error-radio">Please select a payment type</p>
-
-          <!-- Button -->
-          <button
-            type="button"
-            class="w-full h-14 bg-yellow-400 rounded-full font-bold text-slate-900 text-[1.4rem] flex items-center justify-center gap-3 hover:scale-105 hover:bg-yellow-300 transition-all duration-300"
-            id="calculate-button"
-          >
-            <img src="images/icon-calculator.svg" width="20" />
-            Calculate Repayments
-          </button>
-        </form>
-      </section>
-    </main>
-
-    <!-- RESULT SECTION -->
-    <footer class="md:w-1/2 w-full">
-      <section class="result-section">
-        <div class="text-container">
-          <h4>Your Results</h4>
-          <p>
-            Your results are shown below based on the information you provided.
-            to adjust the results edit the form and click Calculate reoayments"
-            again.
-          </p>
-        </div>
-
-        <div class="result-container">
-          <div class="result1">
-            <h5>Your monthly repayments</h5>
-            <h3 id="monthly-repayment">
-              £<span class="monthly-result">000,000.00</span>
-            </h3>
-          </div>
-
-          <hr />
-
-          <div class="result2">
-            <h5>Total you'll repay over the term</h5>
-            <h3 id="total-repayment">
-              £<span class="total-result">000,000.00</span>
-            </h3>
-          </div>
-        </div>
-      </section>
-
-      <!-- Empty result section -->
-      <section class="result-section-empty">
-        <div class="container">
-          <img
-            src="images/illustration-empty.svg"
-            alt="Empty Illustration"
-            width="100"
-          />
-          <div class="text-container">
-            <h3>Results shown here</h3>
-            <p>
-              Complete the form and click "calculate repayments" to see what
-              your monthly repayments would be.
+        <section class="results" id="results-section">
+          <div class="results__header">
+            <h2 class="results__title">Your Results</h2>
+            <p class="results__text">
+              Your results are shown below based on the information you
+              provided. To adjust the results, edit the form and click
+              “calculate repayments” again.
             </p>
           </div>
-        </div>
-      </section>
-    </footer>
+
+          <div class="results__card">
+            <div class="result-row">
+              <h3 class="result-row__label">Your monthly repayments</h3>
+              <p
+                class="result-row__value result-row__value--primary"
+                id="monthly-repayment"
+              >
+                £<span id="monthly-result">0.00</span>
+              </p>
+            </div>
+
+            <hr class="results__divider" />
+
+            <div class="result-row">
+              <h3 class="result-row__label">
+                Total you'll repay over the term
+              </h3>
+              <p class="result-row__value" id="total-repayment">
+                £<span id="total-result">0.00</span>
+              </p>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <script defer src="app.js"></script>
   </body>
 </html>

@@ -1,181 +1,121 @@
-
-
 'use strict';
 
-const cFnc = function() {
-    console.log('This feature worked')
-};
+const app = document.querySelector('.app');
 
-
-// Storing the elements 
-
-const mortageAmount = document.getElementById('mortage-amount');
-const clearBtn = document.getElementById('clear-all-btn');
-const mortageTerm = document.getElementById('mortage-term');
-const interestRate = document.getElementById('interest-rate');
+const amountInput = document.getElementById('mortgage-amount');
+const termInput = document.getElementById('mortgage-term');
+const rateInput = document.getElementById('interest-rate');
 const repaymentRadio = document.getElementById('repayment-radio');
 const interestRadio = document.getElementById('interest-radio');
 const calculateBtn = document.getElementById('calculate-button');
-const monthlyRepayment = document.getElementById('monthly-repayment');
-const totalRepayment = document.getElementById('total-repayment');
+const clearBtn = document.getElementById('clear-all-btn');
 
+const monthlyResultEl = document.getElementById('monthly-result');
+const totalResultEl = document.getElementById('total-result');
 
-// Selecting Error Variables for inputs
-const errorAmount = document.querySelector(".error-amount")
-const errorTerm = document.querySelector(".error-term")
-const errorRate = document.querySelector(".error-rate")
-const errorRadio = document.querySelector(".error-radio")
-// collecting Input values
+const currencyFormatter = new Intl.NumberFormat('en-GB', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
-
-// Selecting Results Classes
-const tResult = document.querySelector(".total-result")
-const mResult = document.querySelector(".monthly-result")
-
-// Selecting The UI
-const visibleResult = document.querySelector(".result-section");
-const emptyResult = document.querySelector(".result-section-empty");
-
-
-// The Function before Button is clicked
-const handleClick = function(e){
-
-    // e.preventDefault();
-
-    let isValid = true;
-    
-    // Amount value Inputs
-    let amountValue = mortageAmount.value
-    if(amountValue === ""){
-        errorAmount.style.display = "block"
-        isValid = false;
-    } else{
-        errorAmount.style.display = "none"
-    }
-    amountValue = Number(amountValue);
-   
-    
-
-    // Term Value Inputs
-    let termValue = mortageTerm.value
-    if(termValue === ""){
-        errorTerm.style.display = "block"
-        isValid = false;
-    } else{
-        errorTerm.style.display = "none"
-    }
-    termValue = Number(termValue)
-    const termValueC = (termValue / 12)
-
-    // Interest Value Inputs
-    let interestValue = interestRate.value
-    if(interestValue === ""){
-        errorRate.style.display = "block"
-         isValid = false;
-    } else{
-        errorRate.style.display = "none"
-    }
-    interestValue = Number(interestValue)
-    const interestValueC = (interestValue / 100)
-
-    
-
-    // Checking and storing the radios
-   if( repaymentRadio.checked || interestRadio.checked ){
-        errorRadio.style.display = "none"
-   } else{
-        errorRadio.style.display = "block"
-        isValid = false;
-   }
-
-//    Repayment Radio formula
-   const repaymentFnc = function(value, term, interest){
-     let mainInterest = value * interest * term + (value) 
-    return(mainInterest)
-}
-const tRepayment = repaymentFnc(
-    amountValue, termValue, interestValueC
-)
-
-// Interest Radio Formula
-const interestFnc = function (value, term, interest){
-    let mainInterest2 = value * interest * term
-    return mainInterest2
-}
-
-
-// Monthly Repayment Function and Formula
-    const monthlyRepaymentFnc = function(value, term, interest){
-    const monthlyInterest = interest / 12;        // yearly → monthly
-    const totalMonths = term * 12;                // years → months
-
-    const monthlyPayment = 
-        (value * monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) /
-        (Math.pow(1 + monthlyInterest, totalMonths) - 1);
-
-    return monthlyPayment;
+const setFieldValidity = function (inputEl, isValid) {
+  const field = inputEl.closest('.field');
+  field.classList.toggle('field--invalid', !isValid);
 };
 
-const monthlyPaymentResult = monthlyRepaymentFnc(
-    amountValue,
-    termValue,
-    interestValueC
-);
+const validateForm = function () {
+  let isValid = true;
 
-
-   const selectedRadio = 
-   document.querySelector('input[name = "type"]:checked')
-
-   let selectedType = null;
-
-   if(selectedRadio){
-    selectedType = selectedRadio.value
-   } else{
+  if (amountInput.value === '') {
+    setFieldValidity(amountInput, false);
     isValid = false;
-   }
+  } else {
+    setFieldValidity(amountInput, true);
+  }
 
-   if(!isValid) return;
+  if (termInput.value === '') {
+    setFieldValidity(termInput, false);
+    isValid = false;
+  } else {
+    setFieldValidity(termInput, true);
+  }
 
-//    NOW SWITCH UI
-    emptyResult.style.display = "none"
-    visibleResult.style.display = "flex"
+  if (rateInput.value === '') {
+    setFieldValidity(rateInput, false);
+    isValid = false;
+  } else {
+    setFieldValidity(rateInput, true);
+  }
 
-    // console.log(emptyResult);
-    // console.log(visibleResult)
+  const radioGroup = document.querySelector('.radio-group');
+  if (repaymentRadio.checked || interestRadio.checked) {
+    radioGroup.classList.remove('radio-group--invalid');
+  } else {
+    radioGroup.classList.add('radio-group--invalid');
+    isValid = false;
+  }
 
-   if(selectedType === "repayment"){
-    tResult.textContent = tRepayment;
-   } 
+  return isValid;
+};
 
-   if(selectedType === "interest" ){
-     tResult.textContent = interestFnc(amountValue, termValue,
-     interestValueC);
+// Repayment mortgage: principal + total interest over the term
+const calculateRepaymentTotal = function (principal, termYears, annualRate) {
+  return principal * annualRate * termYears + principal;
+};
 
-   }
+// Interest-only mortgage: total interest paid over the term
+const calculateInterestOnlyTotal = function (principal, termYears, annualRate) {
+  return principal * annualRate * termYears;
+};
 
-// Manipulating Style For Monthly Repayment
-mResult.textContent = monthlyPaymentResult.toFixed(3);
+// Standard amortising monthly repayment formula
+const calculateMonthlyRepayment = function (principal, termYears, annualRate) {
+  const monthlyRate = annualRate / 12;
+  const totalMonths = termYears * 12;
 
-}
+  return (
+    (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) /
+    (Math.pow(1 + monthlyRate, totalMonths) - 1)
+  );
+};
 
+const handleCalculate = function () {
+  if (!validateForm()) return;
 
-calculateBtn.addEventListener(
-    'click', 
-    handleClick
-)
+  const principal = Number(amountInput.value);
+  const termYears = Number(termInput.value);
+  const annualRate = Number(rateInput.value) / 100;
 
-// Button Taking the Input Back to default Fnction
+  const selectedType = document.querySelector('input[name="type"]:checked').value;
 
-const clearFnc = function(){
-    mortageAmount.value = "";
-    mortageTerm.value = ""
-    interestRate.value = ""
+  const totalRepayment =
+    selectedType === 'repayment'
+      ? calculateRepaymentTotal(principal, termYears, annualRate)
+      : calculateInterestOnlyTotal(principal, termYears, annualRate);
 
+  const monthlyRepayment =
+    selectedType === 'repayment'
+      ? calculateMonthlyRepayment(principal, termYears, annualRate)
+      : (principal * annualRate) / 12;
 
-    emptyResult.style.display = "flex"
-    visibleResult.style.display = "none"
-}
+  monthlyResultEl.textContent = currencyFormatter.format(monthlyRepayment);
+  totalResultEl.textContent = currencyFormatter.format(totalRepayment);
 
-clearBtn.addEventListener(
-    'click', clearFnc
-)
+  app.classList.add('has-results');
+};
+
+const handleClear = function () {
+  amountInput.value = '';
+  termInput.value = '';
+  rateInput.value = '';
+  repaymentRadio.checked = false;
+  interestRadio.checked = false;
+
+  [amountInput, termInput, rateInput].forEach((input) => setFieldValidity(input, true));
+  document.querySelector('.radio-group').classList.remove('radio-group--invalid');
+
+  app.classList.remove('has-results');
+};
+
+calculateBtn.addEventListener('click', handleCalculate);
+clearBtn.addEventListener('click', handleClear);
