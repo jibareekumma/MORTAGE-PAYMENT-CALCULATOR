@@ -1,35 +1,34 @@
-/* ==========================================================================
-   Tokens
-   ========================================================================== */
-:root {
-  --color-cream: #f7f5f0;
-  --color-cream-panel: #ffffff;
-  --color-ink: #16232d;
-  --color-steel: #5c7182;
-  --color-steel-light: #8fa1af;
-  --color-border: #dde3e7;
+// ==========================================================================
+// Tokens
+// ==========================================================================
+$color-cream: #f7f5f0;
+$color-cream-panel: #ffffff;
+$color-ink: #16232d;
+$color-steel: #5c7182;
+$color-steel-light: #8fa1af;
+$color-border: #dde3e7;
 
-  --color-navy-900: #0e2434;
-  --color-navy-800: #16354a;
-  --color-navy-700: #1e4359;
-  --color-parchment: #cddbe4;
+$color-navy-900: #0e2434;
+$color-navy-800: #16354a;
+$color-navy-700: #1e4359;
+$color-parchment: #cddbe4;
 
-  --color-gold: #b8902f;
-  --color-gold-light: #f4e6c4;
-  --color-error: #c0392b;
+$color-gold: #b8902f;
+$color-gold-hover: #a37f28;
+$color-gold-light: #f4e6c4;
+$color-error: #c0392b;
 
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Source Serif 4", Georgia, serif;
+$font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-display: "Source Serif 4", Georgia, serif;
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
+$radius-sm: 4px;
+$radius-md: 6px;
 
-  --shadow-focus: 0 0 0 3px rgba(184, 144, 47, 0.25);
-}
+$shadow-focus: 0 0 0 3px rgba(184, 144, 47, 0.25);
 
-/* ==========================================================================
-   Reset
-   ========================================================================== */
+// ==========================================================================
+// Reset
+// ==========================================================================
 *,
 *::before,
 *::after {
@@ -42,15 +41,15 @@
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px */
+  font-size: 62.5%; // 1rem = 10px
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: $font-body;
   font-size: 1.5rem;
-  color: var(--color-ink);
+  color: $color-ink;
   line-height: 1.5;
-  background-color: var(--color-navy-900);
+  background-color: $color-navy-900;
 }
 
 button {
@@ -65,28 +64,25 @@ input {
   font-family: inherit;
 }
 
-/* Remove number input spinners for a cleaner, calculator-like look */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 input[type="number"] {
-  -moz-appearance: textfield;
+  // -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
-/* ==========================================================================
-   Layout
-   ========================================================================== */
+// ==========================================================================
+// Layout
+// ==========================================================================
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
 
-@media (min-width: 900px) {
-  .app {
+  @media (min-width: 900px) {
     flex-direction: row;
     align-items: stretch;
   }
@@ -97,64 +93,62 @@ input[type="number"] {
 }
 
 .panel--form {
-  background-color: var(--color-cream);
+  background-color: $color-cream;
   padding: 4rem 2.4rem;
+
+  @media (min-width: 900px) {
+    max-width: 54rem;
+    padding: 6rem;
+  }
 }
 
 .panel--results {
-  background-color: var(--color-navy-900);
+  background-color: $color-navy-900;
   padding: 4rem 2.4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
 
-@media (min-width: 900px) {
-  .panel--form {
-    max-width: 54rem;
-    padding: 6rem;
-  }
-
-  .panel--results {
+  @media (min-width: 900px) {
     flex: 1;
     padding: 6rem;
     border-radius: 0 0 0 8rem;
   }
 }
 
-/* ==========================================================================
-   Form card
-   ========================================================================== */
+// ==========================================================================
+// Form card
+// ==========================================================================
 .form-card {
   max-width: 44rem;
   margin: 0 auto;
-}
 
-.form-card__header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 3.2rem;
-}
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3.2rem;
+  }
 
-.form-card__title {
-  font-family: var(--font-display);
-  font-size: 2.6rem;
-  font-weight: 600;
-  color: var(--color-ink);
-  letter-spacing: -0.01em;
+  &__title {
+    font-family: $font-display;
+    font-size: 2.6rem;
+    font-weight: 600;
+    color: $color-ink;
+    letter-spacing: -0.01em;
+  }
 }
 
 .link-btn {
   font-size: 1.4rem;
-  color: var(--color-steel);
+  color: $color-steel;
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.15s ease;
-}
 
-.link-btn:hover {
-  color: var(--color-ink);
+  &:hover {
+    color: $color-ink;
+  }
 }
 
 .form {
@@ -163,117 +157,125 @@ input[type="number"] {
   gap: 2.4rem;
 }
 
-/* ==========================================================================
-   Fields
-   ========================================================================== */
+// ==========================================================================
+// Fields
+// ==========================================================================
 .field {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+
+  &__label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $color-steel;
+  }
+
+  &__control {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    height: 4.8rem;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    background-color: $color-cream-panel;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus-within {
+      border-color: $color-gold;
+      box-shadow: $shadow-focus;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      border: none;
+      background: transparent;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $color-ink;
+      padding: 0 1.6rem;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: $color-steel-light;
+        font-weight: 400;
+      }
+    }
+
+    &--prefix {
+      .field__adorn {
+        border-right: 1px solid $color-border;
+        border-radius: $radius-sm 0 0 $radius-sm;
+      }
+
+      input {
+        border-radius: 0 $radius-sm $radius-sm 0;
+      }
+    }
+
+    &--suffix {
+      .field__adorn {
+        border-left: 1px solid $color-border;
+        border-radius: 0 $radius-sm $radius-sm 0;
+      }
+
+      input {
+        border-radius: $radius-sm 0 0 $radius-sm;
+      }
+    }
+  }
+
+  &__adorn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.6rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $color-ink;
+    background-color: $color-cream;
+  }
+
+  &__error {
+    display: none;
+    font-size: 1.3rem;
+    color: $color-error;
+  }
+
+  &--invalid {
+    .field__control {
+      border-color: $color-error;
+    }
+
+    .field__error {
+      display: block;
+    }
+  }
 }
 
-.field__label {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--color-steel);
-}
-
-.field__control {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  height: 4.8rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-cream-panel);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.field__control:focus-within {
-  border-color: var(--color-gold);
-  box-shadow: var(--shadow-focus);
-}
-
-.field__control input {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  border: none;
-  background: transparent;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-ink);
-  padding: 0 1.6rem;
-}
-
-.field__control input:focus {
-  outline: none;
-}
-
-.field__control input::placeholder {
-  color: var(--color-steel-light);
-  font-weight: 400;
-}
-
-.field__adorn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1.6rem;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-ink);
-  background-color: var(--color-cream);
-}
-
-.field__control--prefix .field__adorn {
-  border-right: 1px solid var(--color-border);
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-}
-
-.field__control--prefix input {
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-.field__control--suffix .field__adorn {
-  border-left: 1px solid var(--color-border);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-.field__control--suffix input {
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-}
-
-.field__error {
-  display: none;
-  font-size: 1.3rem;
-  color: var(--color-error);
-}
-
-.field--invalid .field__control {
-  border-color: var(--color-error);
-}
-
-.field--invalid .field__error {
-  display: block;
-}
-
-.radio-group--invalid .radio-option {
-  border-color: var(--color-error);
-}
-
-.radio-group--invalid .field__error {
-  display: block;
-}
-
-/* ==========================================================================
-   Radio group
-   ========================================================================== */
+// ==========================================================================
+// Radio group
+// ==========================================================================
 .radio-group {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   border: none;
+
+  &--invalid {
+    .radio-option {
+      border-color: $color-error;
+    }
+
+    .field__error {
+      display: block;
+    }
+  }
 }
 
 .radio-option {
@@ -282,70 +284,70 @@ input[type="number"] {
   gap: 1.2rem;
   height: 5.2rem;
   padding: 0 1.6rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
   cursor: pointer;
-  background-color: var(--color-cream-panel);
+  background-color: $color-cream-panel;
   transition: border-color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    border-color: $color-gold;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked ~ .radio-option__dot {
+      border-color: $color-gold;
+
+      &::after {
+        transform: scale(1);
+      }
+    }
+
+    &:focus-visible ~ .radio-option__dot {
+      box-shadow: $shadow-focus;
+    }
+  }
+
+  &__dot {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1.5px solid $color-steel-light;
+    position: relative;
+    transition: border-color 0.15s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0.4rem;
+      border-radius: 50%;
+      background-color: $color-gold;
+      transform: scale(0);
+      transition: transform 0.15s ease;
+    }
+  }
+
+  &__label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $color-ink;
+  }
+
+  &:has(input:checked) {
+    border-color: $color-gold;
+    background-color: $color-gold-light;
+  }
 }
 
-.radio-option:hover {
-  border-color: var(--color-gold);
-}
-
-.radio-option input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.radio-option__dot {
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 1.5px solid var(--color-steel-light);
-  position: relative;
-  transition: border-color 0.15s ease;
-}
-
-.radio-option__dot::after {
-  content: "";
-  position: absolute;
-  inset: 0.4rem;
-  border-radius: 50%;
-  background-color: var(--color-gold);
-  transform: scale(0);
-  transition: transform 0.15s ease;
-}
-
-.radio-option input:checked ~ .radio-option__dot {
-  border-color: var(--color-gold);
-}
-
-.radio-option input:checked ~ .radio-option__dot::after {
-  transform: scale(1);
-}
-
-.radio-option input:focus-visible ~ .radio-option__dot {
-  box-shadow: var(--shadow-focus);
-}
-
-.radio-option:has(input:checked) {
-  border-color: var(--color-gold);
-  background-color: var(--color-gold-light);
-}
-
-.radio-option__label {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-ink);
-}
-
-/* ==========================================================================
-   Calculate button
-   ========================================================================== */
+// ==========================================================================
+// Calculate button
+// ==========================================================================
 .btn-calculate {
   display: flex;
   align-items: center;
@@ -353,32 +355,32 @@ input[type="number"] {
   gap: 1rem;
   height: 5.6rem;
   border-radius: 999px;
-  background-color: var(--color-gold);
-  color: var(--color-navy-900);
+  background-color: $color-gold;
+  color: $color-navy-900;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   margin-top: 0.8rem;
   transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: $color-gold-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-navy-900;
+    outline-offset: 2px;
+  }
+
+  &__icon {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
 }
 
-.btn-calculate:hover {
-  background-color: #a37f28;
-}
-
-.btn-calculate:focus-visible {
-  outline: 2px solid var(--color-navy-900);
-  outline-offset: 2px;
-}
-
-.btn-calculate__icon {
-  width: 1.8rem;
-  height: 1.8rem;
-}
-
-/* ==========================================================================
-   Results panel
-   ========================================================================== */
+// ==========================================================================
+// Results panel
+// ==========================================================================
 .results-empty {
   display: flex;
   flex-direction: column;
@@ -387,25 +389,25 @@ input[type="number"] {
   gap: 2.4rem;
   max-width: 40rem;
   margin: 0 auto;
-}
 
-.results-empty__icon {
-  width: 10rem;
-  height: 10rem;
-  color: var(--color-parchment);
-}
+  &__icon {
+    width: 10rem;
+    height: 10rem;
+    color: $color-parchment;
+  }
 
-.results-empty__title {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #ffffff;
-}
+  &__title {
+    font-family: $font-display;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
 
-.results-empty__text {
-  font-size: 1.4rem;
-  color: var(--color-parchment);
-  line-height: 1.7;
+  &__text {
+    font-size: 1.4rem;
+    color: $color-parchment;
+    line-height: 1.7;
+  }
 }
 
 .results {
@@ -414,78 +416,80 @@ input[type="number"] {
   gap: 3.2rem;
   max-width: 44rem;
   margin: 0 auto;
-}
 
-.results__header {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 
-.results__title {
-  font-family: var(--font-display);
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: #ffffff;
-}
+  &__title {
+    font-family: $font-display;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
 
-.results__text {
-  font-size: 1.4rem;
-  color: var(--color-parchment);
-  line-height: 1.7;
-}
+  &__text {
+    font-size: 1.4rem;
+    color: $color-parchment;
+    line-height: 1.7;
+  }
 
-.results__card {
-  background-color: var(--color-navy-800);
-  border-top: 3px solid var(--color-gold);
-  border-radius: var(--radius-md);
-  padding: 2.8rem 2.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-}
+  &__card {
+    background-color: $color-navy-800;
+    border-top: 3px solid $color-gold;
+    border-radius: $radius-md;
+    padding: 2.8rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
 
-.results__divider {
-  border: none;
-  border-top: 1px solid var(--color-navy-700);
+  &__divider {
+    border: none;
+    border-top: 1px solid $color-navy-700;
+  }
 }
 
 .result-row {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+
+  &__label {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $color-parchment;
+  }
+
+  &__value {
+    font-family: $font-display;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #ffffff;
+
+    &--primary {
+      font-size: 3.6rem;
+      color: $color-gold;
+    }
+  }
 }
 
-.result-row__label {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--color-parchment);
+// Toggled by JS when a calculation has been run
+.app.has-results {
+  .results-empty {
+    display: none;
+  }
+
+  .results {
+    display: flex;
+  }
 }
 
-.result-row__value {
-  font-family: var(--font-display);
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.result-row__value--primary {
-  font-size: 3.6rem;
-  color: var(--color-gold);
-}
-
-/* Toggled by JS when a calculation has been run */
-.app.has-results .results-empty {
-  display: none;
-}
-
-.app.has-results .results {
-  display: flex;
-}
-
-/* ==========================================================================
-   Reduced motion
-   ========================================================================== */
+// ==========================================================================
+// Reduced motion
+// ==========================================================================
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
